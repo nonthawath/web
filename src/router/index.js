@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import main from '../components/main.vue'
 import dashboard from '../components/dashboard.vue'
 import scanner from '../components/scanner'
+import abc from '../components/abc'
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/scanner',
     component: scanner
+  },
+  {
+    path: '/abc',
+    component: abc
   }
 ]
 

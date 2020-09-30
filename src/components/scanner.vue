@@ -13,6 +13,7 @@ export default {
 
     methods: {
         onDecode (result) {
+     alert(result)
      console.log(result)
     },
     onLoaded (){
