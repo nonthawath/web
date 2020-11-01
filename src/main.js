@@ -6,6 +6,9 @@ import Vueaxios from 'vue-axios'
 import router from './router'
 import VueBarcodeScanner from 'vue-barcode-scanner'
 import { ImageBarcodeReader } from "vue-barcode-reader";
+import VueQuagga from 'vue-quaggajs';
+
+Vue.use(VueQuagga);
 Vue.config.productionTip = false
 Vue.use(Vueaxios, axios)
 Vue.use(ImageBarcodeReader)
