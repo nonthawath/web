@@ -7,10 +7,11 @@ import router from './router'
 import VueBarcodeScanner from 'vue-barcode-scanner'
 import { ImageBarcodeReader } from "vue-barcode-reader";
 import VueQuagga from 'vue-quaggajs';
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.use(VueQuagga);
 Vue.config.productionTip = false
-Vue.use(Vueaxios, axios)
+Vue.use( Vueaxios, axios)
 Vue.use(ImageBarcodeReader)
 let options = {
   sound: true, // default is false

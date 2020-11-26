@@ -28,7 +28,7 @@
     methods: {
       async logingoogle() {
         // let data = await this.axios.get( 'http://localhost:3000/login/google')
-        window.location.href = 'http://192.168.100.3:3000/login/google'
+        window.location.href = 'http://localhost:3000/login/google'
         // window.location.href = 'http://192.168.100.3:8080/abc'
         // alert(data.data)
       }

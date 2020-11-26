@@ -2,8 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import main from '../components/main.vue'
 import dashboard from '../components/dashboard.vue'
-import scanner from '../components/scanner'
-import abc from '../components/abc'
+// import scanner from '../components/scanner'
+import Admin from '../components/Admin'
+import table from '../components/table'
+import Borrow from '../components/Borrow.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,16 +25,31 @@ const routes = [
   },
   {
     path: '/dashboard',
+    name: 'dashboard',
     component: dashboard
   },
   {
     path: '/scanner',
-    component: scanner
+    name: 'Scanner',
+    component: () => import(/* webpackChunkName: "about" */ '../views/scanner.vue')
   },
   {
-    path: '/abc',
-    component: abc
+    path: '/Admin',
+    name: 'Admin',
+    component: Admin
   }
+  ,
+  {
+    path: '/table',
+    name: 'table',
+    component: table
+  }
+  ,
+  {
+    path: '/Borrow',
+    name: 'Borrow',
+    component: Borrow
+  },
 ]
 
 const router = new VueRouter({

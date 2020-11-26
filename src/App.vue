@@ -1,4 +1,6 @@
 <template>
+<v-app class="grey lighten-4">
+  <Navbar />
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -8,7 +10,26 @@
     <router-view/>
     </v-main>
   </div>
+</v-app>
 </template>
+
+
+<script>
+import Navbar from '@/components/Navbar'
+export default {
+  name:'App',
+  components: { Navbar },
+  data() {
+    return {
+      //
+    }
+
+  }
+  
+}
+</script>
+
+
 
 <style lang="scss">
 #app {

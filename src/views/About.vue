@@ -1,26 +1,22 @@
 <template>
-  <div>
-    <v-quagga :onDetected="logIt" :readerSize="readerSize" :readerTypes="['ean_reader']"></v-quagga>
-  </div>
+  <StreamBarcodeReader
+    @decode="onDecode"
+    @loaded="onLoaded"
+></StreamBarcodeReader>
 </template>
 <script>
 
+import { StreamBarcodeReader } from "vue-barcode-reader";
 export default {
-  name: 'VueBarcodeTest',
-  data () {
-    return {
-      readerSize: {
-        width: 640,
-        height: 480
-      },
-      detecteds: []
+    components:{
+        StreamBarcodeReader
+    },
+    methods: {
+        onDecode (result) {
+     console.log(result)
+    },
+    onLoaded (){
     }
-  },
-  methods: {
-    logIt (data) {
-      console.log('detected', data)
     }
-
   }
-}
 </script>
