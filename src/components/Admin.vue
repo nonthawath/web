@@ -4,7 +4,7 @@
     <v-btn @click="scanner">
       <span>Scanner</span>
     </v-btn>
-    <v-btn @click="borrowpage">ยืมอุปกรณ์</v-btn>
+    <v-btn @click="historyPage">ยืมอุปกรณ์</v-btn>
     <v-btn>คืนอุปกรณ์</v-btn>
     <v-btn>รายวิชา</v-btn>
     <v-btn>จัดซื้ออุปกรณ์</v-btn>
@@ -29,6 +29,9 @@
       },
       borrowpage(){
         window.location = 'http://localhost:8080/Borrow'
+      },
+      historyPage(){
+        window.location = 'http://localhost:8080/History'
       }
     },
   }

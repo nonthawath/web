@@ -6,6 +6,7 @@ import dashboard from '../components/dashboard.vue'
 import Admin from '../components/Admin'
 import table from '../components/table'
 import Borrow from '../components/Borrow.vue'
+import History from "../components/History.vue";
 
 Vue.use(VueRouter)
 
@@ -49,7 +50,11 @@ const routes = [
     path: '/Borrow',
     name: 'Borrow',
     component: Borrow
-  },
+  },{
+    path: '/History',
+    name: 'History',
+    component: History
+  }
 ]
 
 const router = new VueRouter({

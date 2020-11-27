@@ -17,6 +17,7 @@
                 <v-btn>ตรวจสอบอุปกรณ์</v-btn>
                 <v-btn>รายวิชา</v-btn>
                 <v-btn>จัดซื้ออุปกรณ์</v-btn>
+                <v-btn @click="historyPage">ประวัติการยืมคืน</v-btn>
         
         </v-toolbar>
         <v-navigation-drawer app light :stateless="dialog" temporary v-model="drawer">
@@ -50,6 +51,9 @@ export default {
       },
       borrowpage(){
         window.location = 'http://localhost:8080/Borrow'
+      },
+      historyPage(){
+        window.location = 'http://localhost:8080/History'
       }
     },
     
