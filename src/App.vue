@@ -1,30 +1,69 @@
 <template>
 <v-app class="grey lighten-4">
-  <Navbar />
+  
+   <Navbar v-if="!['Home'].includes($route.name)"/>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
     </div>
+    
+
     <v-main>
     <router-view/>
     </v-main>
+    
   </div>
+  
 </v-app>
+
 </template>
 
 
+
 <script>
+// v-if="renderComponent"
+// v-if="!['Home'].includes($route.name)"
+// import EventBus from './event-bus.js';
 import Navbar from '@/components/Navbar'
+import data from './data/borrow.js'
 export default {
   name:'App',
   components: { Navbar },
   data() {
     return {
-      //
+      renderComponent: true,
+      icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ],
     }
+ 
+  },
+  // mounted() {
+  //     EventBus.$on('update_nav', function (payLoad) {
+  //         this.forceRerender
+  //         console.log(payLoad)
+  //     });
+  //   },
+  // methods: {
+  //   forceRerender() {
+  //       // Remove my-component from the DOM
+  //       this.renderComponent = false;
 
-  }
+  //       this.$nextTick(() => {
+  //         // Add the component back in
+  //         this.renderComponent = true;
+  //       });
+  //     }
+  // },
+      methods: {
+        async borrowpage(){
+        // window.location = 'http://localhost:8080/Borrow&token=' + data.token
+        // await this.$nextTick();
+        this.$router.push('/Borrow&token=' + data.token )
+      },
+      },
   
 }
 </script>

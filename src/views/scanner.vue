@@ -8,6 +8,7 @@
 </template>
 <script>
  import datastore from '../data/borrow.js'
+ import data from '../data/borrow.js'
 import { StreamBarcodeReader } from "vue-barcode-reader";
 export default {
   name: 'VueBarcodeTest',
@@ -30,12 +31,12 @@ export default {
       if(this.scanid){
         datastore.idcard = result
         console.log(datastore)
-        // console.log(result)
-        this.$router.push({ name: 'Borrow' })
+        //console.log(result)
+        this.$router.push('/Borrow?token=' + this.$route.query.token)
       }else if(this.scanitem){
         datastore.item.id = result
         console.log(datastore)
-        this.$router.push({ name: 'Borrow' })
+        this.$router.push('/Borrow?token=' + this.$route.query.token)
         // window.location.href = '/Borrow'
       }
     },
@@ -44,6 +45,18 @@ export default {
     
   },
   async created() {
+    if(this.$route.query.token) {
+       let result = await this.axios.post( 'http://localhost:3000/users/checktoken' , { token : this.$route.query.token })
+       if(!result.data.login){
+         alert('Not have Token in Session')
+         this.$router.push('/')
+       }else{
+         data.token = this.$route.query.token
+       }
+      }else{
+        alert('input your token')
+        this.$router.push('/')
+      }
     if(this.$route.query.id == 'true'){
       this.scanid = true
     }else if(this.$route.query.item == 'true'){

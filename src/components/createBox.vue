@@ -2,56 +2,29 @@
   <v-container>
     <v-row> 
       <v-container>
-        <h1>ยืมอุปกรณ์</h1>
+        <h1>จัดชุดอุปกรณ์</h1>
       </v-container>
 
     </v-row>
-    <v-row>
-      <v-container>
-        <h1>กรุณาทำการสแกนบัตรนิสิต/อุปกรณ์</h1>
-      </v-container>
-    </v-row>
-    <v-row>
-      <v-container>
-      
-      
-      
-          <v-btn color="#F4D03F" @click="scannerID" class="mx-4" >
-            <span>Scan บัตรนิสิต</span>
-          </v-btn>
-          <v-btn color="#F4D03F" @click="scannerItem" >Scan อุปกรณ์</v-btn>
-      </v-container>
-      
-    </v-row>
+   
     <v-row>
       <v-card width="400" class="mx-auto my-6">
         <v-container>
                 <v-textarea
-            v-model="idcard"
+            v-model="boxname"
               no-resize
               rows="1"
-              label="รหัสนิสิต"
-              :value="idcard"
+              label="ชื่อชุดอุปกรณ์"
+              :value="boxname"
             ></v-textarea>
         <v-textarea
-            v-model="iditem"
+            v-model="boxid"
               no-resize
               rows="1"
               label="ID อุปกรณ์"
-              :value="iditem"
+              :value="boxid"
             ></v-textarea>
-          <v-textarea
-            v-model="borrowDate"
-              no-resize
-              rows="1"
-              label="วันที่ยืม"
-              :value="borrowDate"
-            ></v-textarea>
-            <v-select
-               :items="items"
-                label="ยืม/คืน"
-                v-model="selectedStatus"
-            ></v-select>
+        
         <v-btn color="#2ECC71" @click="submit">ยืนยันข้อมูล</v-btn>
         </v-container>
       </v-card>
@@ -66,19 +39,16 @@
   import EventBus from '../event-bus.js';
   export default {
     data() {
-      //.substr(0, 10),
         return {
-            idcard: '',
-            iditem: '',
-            items: ['borrow' , 'backed'],
-            selectedStatus: '',
-            borrowDate: new Date().toISOString(),
+            boxname: '',
+            boxid: '',
         }
     },
     async created () {
+      console.log('this CREATE')
       if(this.$route.query.token) {
        let result = await this.axios.post( 'http://localhost:3000/users/checktoken' , { token : this.$route.query.token })
-       //console.log(result.data)
+       console.log(result.data)
        if(!result.data.login){
          alert('Not have Token in Session')
          this.$router.push('/')
@@ -91,11 +61,10 @@
         alert('input your token')
         this.$router.push('/')
       }
-      //console.log(data)
-        this.idcard = data.idcard
-        this.iditem = data.item.id
+      console.log(data)
+        // this.idcard = data.idcard
+        // this.iditem = data.item.id
         // this.iditem = borrow.item.id
-      
     },
     destroyed () {
     },
@@ -109,7 +78,7 @@
         // window.location = 'http://localhost:8080/scanner?item=true'
       },
       async submit(){
-        let re = await this.axios.post( 'http://localhost:3000/inventory/borrow' , {  email: data.email , id: this.idcard , boxid : this.iditem , status: this.selectedStatus} )
+        let re = await this.axios.post( 'http://localhost:3000/inventory/createbox' , {  boxid: this.boxid  , boxname: this.boxname  } )
         // console.log(re)
         alert(re.data.msg)
       }

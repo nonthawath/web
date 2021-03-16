@@ -1,12 +1,26 @@
-<template>
+<template >
   <v-container>
-      <v-btn @click="dashboard">
-      <span>Recents</span>
-      <v-icon>mdi-history</v-icon>
-    </v-btn>
-    <v-btn @click="login">
-      <span>Sign Goolge</span>
-    </v-btn>
+    <v-row>
+      <v-container
+        
+      >
+        <img
+          src="/KUSRC.png"
+          width='500'
+        height='500'
+          />
+      </v-container>
+      
+    </v-row>
+    <v-row>
+      <v-container>
+        <v-btn @click="login">
+            <span>Login</span>
+          </v-btn>
+      </v-container>
+        
+    </v-row>
+    
   </v-container>
 </template>
 

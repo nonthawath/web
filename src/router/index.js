@@ -3,9 +3,14 @@ import VueRouter from 'vue-router'
 import main from '../components/main.vue'
 import dashboard from '../components/dashboard.vue'
 // import scanner from '../components/scanner'
-import Admin from '../components/Admin'
 import table from '../components/table'
 import Borrow from '../components/Borrow.vue'
+import createBox from '../components/createBox'
+import tablehistory from '../components/tablehistory'
+import Queue from '../components/Queue'
+import QueueStudent from '../components/QueueStudent'
+import ShowQueue from '../components/ShowQueue'
+import Upload from '../components/Upload'
 
 Vue.use(VueRouter)
 
@@ -14,14 +19,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: main
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/dashboard',
@@ -33,12 +30,7 @@ const routes = [
     name: 'Scanner',
     component: () => import(/* webpackChunkName: "about" */ '../views/scanner.vue')
   },
-  {
-    path: '/Admin',
-    name: 'Admin',
-    component: Admin
-  }
-  ,
+
   {
     path: '/table',
     name: 'table',
@@ -50,6 +42,40 @@ const routes = [
     name: 'Borrow',
     component: Borrow
   },
+  {
+    path: '/createBox',
+    name: 'createBox',
+    component: createBox
+  },
+  {
+    path: '/tablehistory',
+    name: 'tablehistory',
+    component: tablehistory
+  },
+  {
+    path: '/Queue',
+    name: 'Queue',
+    component: Queue
+
+  },
+  {
+    path: '/QueueStudent',
+    name: 'QueueStudent',
+    component: QueueStudent
+
+  },
+  {
+    path: '/ShowQueue',
+    name: 'ShowQueue',
+    component: ShowQueue
+
+  },
+  {
+    path: '/Upload',
+    name: 'Upload',
+    component: Upload
+
+  }
 ]
 
 const router = new VueRouter({

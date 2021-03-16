@@ -17,6 +17,7 @@
     "vue-barcode-scanner": "^0.8.1",
     "vue-quaggajs": "^1.0.12",
     "vue-router": "^3.2.0",
+    "vue2-timepicker": "^1.1.6",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
