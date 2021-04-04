@@ -11,7 +11,10 @@ import Queue from '../components/Queue'
 import QueueStudent from '../components/QueueStudent'
 import ShowQueue from '../components/ShowQueue'
 import Upload from '../components/Upload'
-
+import Histtoryborrow from '../components/Histtoryborrow'
+import GetSubject from '@/components/GetSubject'
+import CreateSubject from '@/components/CreateSubject'
+import EditSubject from '@/components/EditSubject'
 Vue.use(VueRouter)
 
 const routes = [
@@ -75,7 +78,28 @@ const routes = [
     name: 'Upload',
     component: Upload
 
-  }
+  },
+  {
+    path: '/Histtoryborrow',
+    name: 'Histtoryborrow',
+    component: Histtoryborrow
+
+  },
+  {
+    path: '/GetSubject',
+    name: 'GetSubject',
+    component: GetSubject
+  },
+  {
+    path: '/CreateSubject',
+    name: 'CreateSubject',
+    component: CreateSubject
+  },
+  {
+    path: '/EditSubject',
+    name: 'EditSubject',
+    component: EditSubject
+  },
 ]
 
 const router = new VueRouter({

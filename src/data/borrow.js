@@ -5,7 +5,11 @@ var data = {
         listitem: {name: '' , count: '' , id: ''}  
     },
     token: '',
-    email: 'test@hotmail.com'
+    SubjectName: '',
+    SubjectID : '',
+    Sec: '',
+    email: '',
+    role: ''
 }
 
 module.exports = data

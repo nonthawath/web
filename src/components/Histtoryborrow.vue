@@ -2,7 +2,7 @@
   <v-container>
   <div>
       <p style="font-size: 25px;font-weigth:bold">{{ "วิชา " + SubjectName + " รหัสวิชา " + SubjectID + " Sec " + Sec}}</p>
-    </div>
+  </div>
   <div>
     <v-data-table
     :headers="headers"
@@ -11,24 +11,22 @@
     @click:row="getrowData"
     class="elevation-1"
   ></v-data-table>
-  </div>
   <div class="text-center">
       <v-dialog
         v-model="dialog"
         width="500"
       >
-      <v-card-title class="headline grey lighten-2">
-            อุปกรณ์เสียหาย
-          </v-card-title>  
         <v-card>
-          <ul id="example-1">
-              <li v-for="item in Listitem" :key="item">
-                {{ item }} 
-              </li>
-          </ul>
+          <v-card-title class="headline grey lighten-2">
+            รูปภาพหลักฐาน
+          </v-card-title>
+            <img :src="ImgInventory" style="max-width:450px;margin-top:10px"/>
+            <img :src="ImgHuman" style="max-width:450px"/>
         </v-card>
       </v-dialog>
     </div>
+    
+  </div>
   </v-container>
 </template>
 <script>
@@ -37,25 +35,18 @@ export default {
   name: 'VueBarcodeTest',
   data () {
     return {
-      dialog: false,
       SubjectName:data.SubjectName,
       SubjectID:data.SubjectID,
       Sec:data.Sec,
+        dialog: false,
+        ImgInventory:'',
+        ImgHuman:'',
       headers: [
-          {
-            text: 'รหัสอุปกรณ์',
-            align: 'start',
-            sortable: false,
-            value: 'boxid',
-          },
-          { text: 'ชื่อชุดอุปกรณ์', value: 'boxname' },
-          { text: 'email ผู้ยืม', value: 'borrow_by' },
-          { text: 'รหัสนิสิต', value: 'borrow_by_id' },
-          { text: 'วันที่', value: 'borrow_at' },
+          { text: 'email ผู้ยืม', value: 'borrowname' },
+          { text: 'วันที่', value: 'borrowDate' },
           { text: 'สถานะ', value: 'status' },
         ],
-        users:[],
-        Listitem: []
+        users:[]
     }
   },
   methods: {
@@ -63,19 +54,19 @@ export default {
       console.log('detected', data)
     },
     getrowData(value){
-        this.Listitem = value.DmgItem
+        this.ImgInventory =value.ImgInventory
+        this.ImgHuman = value.ImgHuman
         this.dialog = true
-      // console.log( 'row Value ' , this.dialog , value.listItem)
+      console.log( 'row Value ' , value)
     }
 
   },
   async created() {
       console.log('a')
-      let result = await this.axios.get('http://localhost:3000/inventory/getallhistory/' + data.SubjectID + '/' + data.Sec) 
+      let result = await this.axios.get('http://localhost:3000/inventory/getallhistoryNoneTa/' + data.SubjectID + '/' + data.Sec) 
       let oldFormat = result.data.data
       let newformat = oldFormat.map( el => {
-        el.borrow_at = el.borrow_at.replace("T" , " ").substr(0 , 19)
-        // el.borrow_by_id = el.borrow_by_id.substr( 3 , 10)
+        el.borrowDate = el.borrowDate.replace("T" , " ").substr(0 , 19)
         return el
       })
       this.users = newformat
