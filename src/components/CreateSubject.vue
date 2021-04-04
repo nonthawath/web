@@ -74,20 +74,16 @@
           <v-card-title class="headline grey lighten-2">
             รายชื่อนิสิต
           </v-card-title>
-
             <ul id="example-1">
               <li v-for="item in Students" :key="item">
                 {{ item }} 
               </li>
             </ul>
-
         </v-card>
       </v-dialog>
     </div>
   </v-container>
 </template>
-
-
 
 <script>
   import data from '../data/borrow.js'
