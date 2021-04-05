@@ -1,6 +1,9 @@
 <template>
 
     <v-container>
+        <div>
+          <p style="font-size: 25px;font-weigth:bold">{{ "วิชา " + SubjectName + " รหัสวิชา " + SubjectID + " Sec " + Sec}}</p>
+        </div>
         <v-row>
             <v-col>
                 <v-date-picker v-model="picker" locale="th" :min="Mindate"
@@ -19,28 +22,23 @@
                 </v-icon>
             </v-btn>
             <VueTimepicker format="HH:mm" @change="onChangeTime" ></VueTimepicker>
-            <div class="text-center">
-        <v-select
-          :items="items"
-          label="รายวิชา"
-          @change="onChangeSubject"
-        ></v-select>
-  </div>
+            
            </v-col>
         </v-row>
-        <v-text-field
-            label="ครั้งที่ 1"
-            :value="this.queue[0]"
-          ></v-text-field>
-        <v-text-field
-            label="ครั้งที่ 2"
-            :value="this.queue[1]"
-          ></v-text-field>
-        <v-text-field
-            label="ครั้งที่ 3"
-            :value="this.queue[2]"
-          ></v-text-field>
-
+        <div style="overflow: auto;max-height:200px;">
+          <div v-for="(item, index) in queue" :key="index">
+            <li>
+              {{ "ลำดับที่ "+ (index + 1)+ " วันที่ " + item.date + " เวลา " + item.time }}
+            </li>
+          </div>
+        </div>
+        <v-btn
+          class="ma-2"
+          color="green"
+          @click="deletetime"
+          >
+           clear
+          </v-btn>
           <v-btn
         class="ma-2"
       
@@ -50,10 +48,6 @@
         Accept Terms
         </v-btn>
         
-        
-        
-            
-        
     </v-container>
 </template>
 
@@ -61,6 +55,7 @@
 
 import VueTimepicker from 'vue2-timepicker'
 import 'vue2-timepicker/dist/VueTimepicker.css'
+import data from '../data/borrow.js'
 
 export default {
     components: { VueTimepicker },
@@ -68,6 +63,9 @@ export default {
     data () {
         return {
             time: '',
+            SubjectName:data.SubjectName,
+            SubjectID:data.SubjectID,
+            Sec:data.Sec,
             picker: new Date().toISOString().substr(0, 10),
             Mindate: new Date().toISOString().substr(0, 10),
             queue: [],
@@ -80,10 +78,13 @@ export default {
     methods: {
       Addtime (){
         //   console.log( this.t )
-        this.queue.push(this.time)
-        console.log( this.queue )
+        this.queue.push({ date: this.picker , time : this.time})
+        // console.log( this.queue )
         this.inq = this.queue[0]
-        
+      },
+      deletetime(){
+        this.queue = []
+        // this.queue.pop()
       },
       onChangeTime (e) {
         // console.log( " display ",e.displayTime)
@@ -93,7 +94,7 @@ export default {
         //   
       },
      async Submit (){
-        let res = await this.axios.post('http://localhost:3000/q' , {  SubjectName: this.select, Time: this.queue , Date: this.picker } )
+        let res = await this.axios.post('http://localhost:3000/q' , {  SubjectName: this.SubjectName, Time: this.queue ,SubjectID: this.SubjectID ,Sec: this.Sec} )
         console.log(res)
 
       },

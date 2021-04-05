@@ -1,17 +1,13 @@
 <template>
     <v-container>
-        <div class="text-center">
-            <v-select
-            :items="Subjects"
-            label="รายวิชา"
-            @change="onChangeSubject"
-            ></v-select>
+        <div>
+          <p style="font-size: 25px;font-weigth:bold">{{ "วิชา " + SubjectName + " รหัสวิชา " + SubjectID + " Sec " + Sec}}</p>
         </div>
         <div class="text-center">
             <v-select
-            :items="Times"
-            label="เวลาจอง"
-            @change="onChangeTimes"
+                :items="Times"
+                label="เวลาจอง"
+                @change="onChangeTimes"
             ></v-select>
         </div>
         <div class="text-center">
@@ -31,38 +27,46 @@ import data from '../data/borrow.js'
 export default {
     data (){
         return{
-            SubjectSelected : '',
+            SubjectName:data.SubjectName,
+            SubjectID:data.SubjectID,
+            Sec:data.Sec,
             TimeSelected : '' ,
             Times: [],
             Bookings : [],
             Date : '',
-            Subjects: [ "EmbededSystem" , "ComputerScience" , "AbstractData" ]
-        }
-    },
-    methods: {
-        async onChangeSubject(e){
-            let res = await this.axios.get('http://localhost:3000/q/' + e)
-            console.log( res )
-            let ListTimes = []
-            res.data.Time.forEach( e => {
-                ListTimes.push(e.Time)
-            })
-            this.Times = ListTimes
-            this.Date = res.data.Date
-            this.SubjectSelected = e
-        },
-        async Submit(){
-            let res = await this.axios.post('http://localhost:3000/q/Booking' , { indexTime : this.Times.indexOf(this.TimeSelected) , email : data.email , SubjectName: this.SubjectSelected })
-            console.log( res )
-        },
-        onChangeTimes(e){
-            this.TimeSelected = e
         }
     },
     async created() {
-        // let res = await this.axios.get('http://localhost:3000/q/')
-        // console.log(res)
-        // this.Times =
+        let res = await this.axios.get(`http://localhost:3000/q/${this.SubjectName}/${this.SubjectID}/${this.Sec}`  )
+        if(res.data){
+            this.Bookings = res.data.Time
+            res.data.Time.forEach( (e , index) => {
+                this.Times.push(`วันที่ ${e.date} เวลา ${e.time} Index:${index}`)
+            })
+        }
+        console.log( "response ", res.data )
+
+    },
+    methods: {
+        onChangeTimes(e){
+            console.log(e.split("Index:")[1])
+            this.TimeSelected = e.split("Index:")[1]
+            if(this.Bookings[this.TimeSelected].Booking.includes(data.email)){
+                alert( data.email + " คุณเคยจองเวลานี้ไปแล้ว")
+            }
+        },
+        async Submit(){
+            let res = await this.axios.post(`http://localhost:3000/q/Booking/` , { indexTime : this.TimeSelected , email: data.email , Sec: this.Sec , SubjectID: this.SubjectID }  )
+            
+            if(this.Bookings[this.TimeSelected].Booking.includes(data.email)){
+                alert( data.email + " คุณเคยจองเวลานี้ไปแล้ว")
+            }else if(res.data.error){
+                alert("Fail")
+            }else{
+                alert("Success")
+                this.$router.push('/ShowQueue?token=' + this.$route.query.token)
+            }
+        }
     },
 }
 </script>

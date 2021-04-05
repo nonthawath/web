@@ -31,6 +31,7 @@
               rows="1"
               label="รหัสนิสิต"
               :value="idcard"
+              v-on:keypress="isNumber(event)"
             ></v-textarea>
         <v-textarea
             v-model="iditem"
@@ -40,7 +41,7 @@
               :value="iditem"
             ></v-textarea>
           <v-textarea
-            v-model="borrowDate"
+            v-model="realDate"
               no-resize
               rows="1"
               label="วันที่ยืม"
@@ -102,6 +103,7 @@
 <script>
   import data from '../data/borrow.js'
   import EventBus from '../event-bus.js';
+  import moment from 'moment';
   export default {
     data() {
       //.substr(0, 10),
@@ -117,11 +119,16 @@
             items: ['borrow' , 'backed'],
             selectedStatus: '',
             borrowDate: new Date().toISOString(),
+            realDate: moment().format('MMMM Do YYYY, h:mm:ss a'),
             email : '',
         }
     },
     async created () {
       if(this.$route.query.token) {
+        let now = new Date(Date.now())
+        now.setHours(now.getHours() + 7 )
+        this.borrowDate = now.toISOString()
+        now.getmonth
        let result = await this.axios.post( 'http://localhost:3000/users/checktoken' , { token : this.$route.query.token })
        //console.log(result.data)
       //  alert(result.data.role)
@@ -148,6 +155,21 @@
     destroyed () {
     },
     methods: {
+
+      
+       isNumber: function(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57))) {
+          evt.preventDefault();
+        } else {
+          return true;
+        }
+      },
+
+
+
+
       scannerID() {
         this.$router.push('/scanner?id=true&token=' + this.$route.query.token )
         // window.location = 'http://localhost:8080/scanner?id=true'

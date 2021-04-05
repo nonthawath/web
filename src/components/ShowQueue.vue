@@ -1,12 +1,7 @@
 <template>
 <v-container>
-
-        <div class="text-center">
-            <v-select
-            :items="Subjects"
-            label="รายวิชา"
-            @change="onChangeSubject"
-            ></v-select>
+        <div>
+          <p style="font-size: 25px;font-weigth:bold">{{ "วิชา " + SubjectName + " รหัสวิชา " + SubjectID + " Sec " + Sec}}</p>
         </div>
      <div>
     <v-data-table
@@ -20,9 +15,13 @@
 </template>
 
 <script>
+import data from '../data/borrow.js'
 export default {
    data (){
         return{
+            SubjectName:data.SubjectName,
+            SubjectID:data.SubjectID,
+            Sec:data.Sec,
             SubjectSelected : '',
             TimeSelected : '' ,
             Times: [],
@@ -44,8 +43,12 @@ export default {
         }
     },
     methods: {
-        async onChangeSubject(Subject){
-            let res = await this.axios.get('http://localhost:3000/q/' + Subject)
+        async onChangeSubject(){
+            
+        }
+    },
+    async created() {
+        let res = await this.axios.get(`http://localhost:3000/q/${this.SubjectName}/${this.SubjectID}/${this.Sec}`  )
             console.log( res )
             let ListTimes = []
             res.data.Time.forEach( listtime => {
@@ -58,12 +61,11 @@ export default {
                         booking = booking + ' ' + nameBooking + ', '
                     })
                 }
-                ListTimes.push({ SubjectName: res.data.SubjectName , Time: listtime.Time , Date: res.data.Date , Booking : booking })
+                ListTimes.push({ SubjectName: res.data.SubjectName , Time: listtime.time , Date: listtime.date , Booking : booking })
             })
             // console.log(ListTimes)
             this.queue = ListTimes
-        }
-    }
+    },
 }
 
 

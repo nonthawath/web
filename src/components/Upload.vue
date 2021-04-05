@@ -72,6 +72,8 @@ export default {
     },
     async SubmitProcess() {
       const formData = new FormData();
+      formData.append("SubjectID" , data.SubjectID)
+      formData.append("Sec" , data.Sec)
       this.listImg.forEach(e => {
         formData.append( e.name , e.data )
       })

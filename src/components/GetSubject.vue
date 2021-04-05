@@ -76,9 +76,12 @@
         data.SubjectID = this.selectedSubject.split(" : ")[1]
         data.Sec = this.selectedSubject.split(" : ")[2]
         let res = await this.axios.post( 'http://localhost:3000/Subjects/CheckPermission' , { Student : data.email , SubjectName : data.SubjectName , SubjectID : data.SubjectID , Sec: data.Sec } )
+      
         if(!res.data.check && data.role == 'Student' ){
             alert('ไม่มีรายชื่อนิสิตในวิชานี้')
+            
         }else{
+            alert('Done!')
             this.$router.push('/borrow?id=true&token=' + this.$route.query.token ) 
         }
       }
