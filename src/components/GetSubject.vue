@@ -35,7 +35,7 @@
          this.$router.push('/')
        }else{
          this.email = result.data.email
-         data.token = this.$route.query.token
+         data.token = this.$route.query.token ///เอาค่าตัวแปล token จาก link หน้าเว็บมา
          data.email = result.data.email
          data.role = result.data.role
          EventBus.$emit('update_nav', result.data.email)

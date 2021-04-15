@@ -66,10 +66,10 @@ export default {
       let result = await this.axios.get('http://localhost:3000/inventory/getallhistoryNoneTa/' + data.SubjectID + '/' + data.Sec) 
       let oldFormat = result.data.data
       let newformat = oldFormat.map( el => {
-        el.borrowDate = el.borrowDate.replace("T" , " ").substr(0 , 19)
+        el.borrowDate = el.borrowDate.replace("T" , " ").substr(0 , 19) ////จัด format เวลา
         return el
       })
-      this.users = newformat
+      this.users = newformat //// newformat มี ข้อมูลใน db ครบ
         //   this.name = result.data.username
         //   this.email = result.data.email
       console.log(result)

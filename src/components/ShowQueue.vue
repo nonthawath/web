@@ -37,7 +37,10 @@ export default {
                 },
                 { text: 'วันที่', value: 'Date' },
                 { text: 'เวลา', value: 'Time' },
-                { text: 'ผู้จอง', value: 'Booking' },
+                //{ text: 'ผู้จอง', value: 'Booking' },
+                { text: 'จำนวนผู้จอง', value: 'CountBooking' },
+                { text: 'วันที่คืน', value: 'TimeReturn' },
+                { text: 'ลิมิตการจอง', value: 'limit' },
             ],
             queue: []
         }
@@ -61,7 +64,7 @@ export default {
                         booking = booking + ' ' + nameBooking + ', '
                     })
                 }
-                ListTimes.push({ SubjectName: res.data.SubjectName , Time: listtime.time , Date: listtime.date , Booking : booking })
+                ListTimes.push({ SubjectName: res.data.SubjectName , Time: listtime.time , Date: listtime.date , CountBooking : listtime.Booking.length , limit: listtime.limit , TimeReturn : listtime.timeReturn })
             })
             // console.log(ListTimes)
             this.queue = ListTimes

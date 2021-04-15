@@ -1,9 +1,12 @@
 <template>
   <v-container>
+  <div>
+      <p style="font-size: 25px;font-weigth:bold">{{ "วิชา " + SubjectName + " รหัสวิชา " + SubjectID + " Sec " + Sec}}</p>
+  </div>
     <v-stepper v-model="e1">
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1">
-          หยิบของตามหมายเลข
+          ยืม/คืน
         </v-stepper-step>
 
         <v-divider></v-divider>
@@ -22,7 +25,7 @@
           <v-card class="mb-12" color="grey lighten-1" height="200px">
             <v-select
               class="pa-6"
-              v-model="value"
+              v-model="status"
               :items="choice"
               
               solo
@@ -36,6 +39,8 @@
           <v-card class="mb-12" color="grey lighten-1" height="200px">
             <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange('ImgInventory', $event.target.files); fileCount = $event.target.files.length"
             accept="image/*" class="input-file">
+            
+            
           </v-card>
           <v-btn color="error" @click="e1 = 1"> Previous </v-btn>
           <v-btn color="primary" @click="e1 = 3"> Continue </v-btn>
@@ -45,6 +50,7 @@
           <v-card class="mb-12" color="grey lighten-1" height="200px">
             <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange( 'ImgHuman', $event.target.files); fileCount = $event.target.files.length"
             accept="image/*" class="input-file">
+            
           </v-card>
           <v-btn color="error" @click="e1 = 2"> Previous </v-btn>
           <v-btn color="primary" @click="SubmitProcess"> Continue </v-btn>
@@ -59,9 +65,13 @@ export default {
   data() {
     return {
       e1: 1,
-      choice: ["No.1", "No.2", "No.3"],
+      choice: ["ยืมอุปกรณ์", "คืนอุปกรณ์"],
       listImg: [],
-      value: "No.1",
+      status: 'ยืมอุปกรณ์',
+      SubjectName:data.SubjectName,
+      SubjectID:data.SubjectID,
+      Sec:data.Sec,
+      
     };
   },
   methods: {
@@ -74,6 +84,7 @@ export default {
       const formData = new FormData();
       formData.append("SubjectID" , data.SubjectID)
       formData.append("Sec" , data.Sec)
+      formData.append("status" , this.status)
       this.listImg.forEach(e => {
         formData.append( e.name , e.data )
       })
@@ -81,6 +92,7 @@ export default {
       let res = await this.axios.post('http://localhost:3000/historyBorrow/Borrow' , formData )
       console.log(res.data)
       alert(res.data.msg)
+      
     }
   }
 };

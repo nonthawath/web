@@ -21,7 +21,19 @@
                     mdi-plus
                 </v-icon>
             </v-btn>
+            <p>เวลาจอง</p>
             <VueTimepicker format="HH:mm" @change="onChangeTime" ></VueTimepicker>
+            <p>เวลาคืน</p>
+             <v-date-picker v-model="timeReturn" locale="th" :min="Mindate"
+                ></v-date-picker>
+            <p>limit</p>
+            <v-textarea
+              v-model="limit"
+                no-resize
+                rows="1"
+      
+                :value="limit"
+              ></v-textarea>
             
            </v-col>
         </v-row>
@@ -70,17 +82,50 @@ export default {
             Mindate: new Date().toISOString().substr(0, 10),
             queue: [],
             inq: '',
-            items: [ "EmbededSystem" , "ComputerScience" , "AbstractData" ],
-            select : 'Subject'
+            check:'',
+            limit: 0,
+            timeReturn: ''
+           
         }
     },
 
     methods: {
       Addtime (){
-        //   console.log( this.t )
-        this.queue.push({ date: this.picker , time : this.time})
+          let check = false
+          console.log( "add time methods" )
+        
+        if(this.queue.length <= 0 )  {
+          console.log( "this.queue.length" )
+          this.queue.push({ date: this.picker , time : this.time , timeReturn: this.timeReturn , limit: this.limit })
+          this.inq = this.queue[0]
+        }else{
+          this.queue.forEach(element => {
+            console.log("each")
+            if(this.time === element.time){
+              console.log("if")
+              alert('เวลาการจองไม่สามารถซ้ำได้')
+              check = true
+              return false
+            }
+          })
+          console.log("check",check)
+          if(check == false){
+            console.log("else")
+            this.queue.push({ date: this.picker , time : this.time , timeReturn: this.timeReturn , limit: this.limit })
+            this.inq = this.queue[0]
+          }
+          
+        }
+
+       
+
+        
+       
+        
+        
+        
         // console.log( this.queue )
-        this.inq = this.queue[0]
+        
       },
       deletetime(){
         this.queue = []
@@ -101,7 +146,11 @@ export default {
       async onChangeSubject(e){
         console.log(e)
         this.select = e
+      },
+      onChangeTimeReturn (e){
+        this.timeReturn = e.displayTime
       }
+      
     },
    async created() {
        console.log(this.picker)
