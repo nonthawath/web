@@ -7,7 +7,8 @@
     ></v-select>
 
     <div>
-        <v-btn color="#2ECC71" @click="GetSubject" style="margin-top: 10px;"> ยืนยัน </v-btn>
+      
+        <v-btn color="#2ECC71" @click="GetSubject" style="margin-top: 10px;"><v-icon class="mr-2">mdi-check</v-icon> ยืนยัน </v-btn>
     </div>
   </v-container>
 </template>

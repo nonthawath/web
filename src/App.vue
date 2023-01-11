@@ -2,6 +2,7 @@
 <v-app class="grey lighten-4">
   
    <Navbar v-if="!['Home'].includes($route.name)"/>
+   <!-- <Navbar/> -->
   <div id="app">
     <div id="nav">
     </div>
