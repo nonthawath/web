@@ -15,6 +15,7 @@ import Histtoryborrow from '../components/Histtoryborrow'
 import GetSubject from '@/components/GetSubject'
 import CreateSubject from '@/components/CreateSubject'
 import EditSubject from '@/components/EditSubject'
+import userManagement from '@/components/userManagement'
 Vue.use(VueRouter)
 
 const routes = [
@@ -99,6 +100,11 @@ const routes = [
     path: '/EditSubject',
     name: 'EditSubject',
     component: EditSubject
+  },
+  {
+    path: '/userManagement',
+    name: 'userManagement',
+    component: userManagement
   },
 ]
 

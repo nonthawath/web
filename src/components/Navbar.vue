@@ -55,7 +55,7 @@
                 จัดชุดอุปกรณ์
                 </div>
                 <div v-if=" role  !== 'Student'" @click="queue" style="background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);border-radius: 10px;margin:10px;cursor:pointer"> กำหนดเวลาการจอง </div>
-                <div v-if=" role  !== 'Student'" @click="upload" style="background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);border-radius: 10px;margin:10px;cursor:pointer"> อัพโหลดรูปภาพ </div>
+                <div @click="upload" style="background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);border-radius: 10px;margin:10px;cursor:pointer"> อัพโหลดรูปภาพ </div>
                 <div @click="showq" style="background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);border-radius: 10px;margin:10px;cursor:pointer"> แสดงเวลาการจอง </div>
                 <div @click="qstudent" style="background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);border-radius: 10px;margin:10px;cursor:pointer"> แสดงตารางการจอง </div>
                 <div @click="logout" style="background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);border-radius: 10px;margin:10px;cursor:pointer"> logout </div>
