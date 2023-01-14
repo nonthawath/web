@@ -25,7 +25,7 @@
       <v-list>
         <template v-for="(i, index) in menu">
           
-          <v-list-item :key="index" color="primary" :to="i.to+$route.query.token" class="">
+          <v-list-item :key="index" color="success" :to="i.to+$route.query.token" class="">
               <!-- <v-list-item-action class="ml-6">
                 
                 {{index+1}}
@@ -224,59 +224,58 @@ export default {
       menu: [
         {
           name: 'เลือกรายวิชา',
-          to: '/GetSubject?token=' + data.token,
+          to: '/GetSubject?token=' ,
         },
         {
           name: 'สร้างรายวิชา',
-          to: '/CreateSubject?token=' + data.token,
+          to: '/CreateSubject?token=' ,
         },
         {
           name: 'แก้ไขรายวิชา',
-          to: '',
+          to: '/EditSubject?token=' ,
         },
         {
           name: 'ยืมอุปกรณ์',
-          to: '',
+          to: '/Borrow?token=' ,
         },
         {
           name: 'สถานะอุปกรณ์',
-          to: '',
+          to: '/table?token=' ,
         },
         {
           name: 'ประวัติการยืม',
-          to: '',
+          to: '/tablehistory?token=' ,
         },
-        {
-          name: 'ประวัติการยืม( None TA)',
-          to: '',
-        },
+        // {
+        //   name: 'ประวัติการยืม( None TA)',
+        //   to: '',
+        // },
         {
           name: 'จัดชุดอุปกรณ์',
-          to: '',
+          to: '/createBox?token=' ,
         },
-        {
-          name: 'กำหนดเวลาการจอง',
-          to: '',
-        },
-        {
-          name: 'อัพโหลดรูปภาพ',
-          to: '',
-        },
-        {
-          name: 'แสดงเวลาการจอง',
-          to: '',
-        },
-        {
-          name: 'แสดงตารางการจอง',
-          to: '',
-        },
+        // {
+        //   name: 'กำหนดเวลาการจอง',
+        //   to: '',
+        // },
+        // {
+        //   name: 'อัพโหลดรูปภาพ',
+        //   to: '',
+        // },
+        // {
+        //   name: 'แสดงเวลาการจอง',
+        //   to: '',
+        // },
+        // {
+        //   name: 'แสดงตารางการจอง',
+        //   to: '',
+        // },
       ],
-      role: data.role,
-      tkn: data.token,
     };
   },
   async created() {
     console.log('Role :=> in nav bar', data.role);
+    console.log('Role :=> in nav bar', data);
     this.role = data.role;
     this.tkn = data.token;
     console.log(this.pathcreatebox);

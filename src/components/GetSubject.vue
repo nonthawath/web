@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-select
+    outlined
         :items="Listsubject"
         label="เลือกรายวิชา"
         v-model="selectedSubject"
@@ -8,7 +9,7 @@
 
     <div>
       
-        <v-btn color="#2ECC71" @click="GetSubject" style="margin-top: 10px;"><v-icon class="mr-2">mdi-check</v-icon> ยืนยัน </v-btn>
+        <v-btn width="120px" color="success" @click="GetSubject" style="margin-top: 10px;"><v-icon class="mr-2">mdi-check</v-icon> ยืนยัน </v-btn>
     </div>
   </v-container>
 </template>
