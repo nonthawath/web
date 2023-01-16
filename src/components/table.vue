@@ -22,10 +22,19 @@
           </v-card-title>  
         <v-card>
           <ul id="example-1">
-              <li v-for="item in Listitem" :key="item.name">
-                {{ item.name + ' : ' + item.count }} 
+              <li v-for="(item, index) in Listitem" :key="item.name">
+                {{ item.name + ' : ' }}
+                <input v-on:input="editCount(item, index)" type="number" v-model="item.count"/> 
               </li>
           </ul>
+          <div>
+             <v-btn @click="submitEditData">
+                แก้ไข
+              </v-btn>
+              <v-btn @click="closeDialog">
+                ยกเลิก
+              </v-btn>
+          </div>
         </v-card>
       </v-dialog>
     </div>
@@ -54,8 +63,9 @@ export default {
           { text: 'วันที่ยืม', value: 'borrow_at' },
           { text: 'สถานะ', value: 'status' },
         ],
-        users:[],
-        Listitem: []
+      users:[],
+      Listitem: [],
+      selectedItem: [],
     }
   },
   methods: {
@@ -65,17 +75,52 @@ export default {
     getrowData(value){
         this.Listitem = value.listItem
         this.dialog = true
-      // console.log( 'row Value ' , this.dialog , value.listItem)
+        this.selectedItem = JSON.stringify({ ...value })
+    },
+    closeDialog(){
+      this.dialog = false
+    },
+    async submitEditData(){
+      var invalidData = false
+      let checkCount = 0
+      JSON.parse(this.selectedItem).listItem.forEach((e, i) => {
+        let intE = parseInt(e.count)
+        if(intE < 0 || intE < parseInt(this.Listitem[i].count)){
+          invalidData = true
+        }else if (parseInt(this.Listitem[i].count) == intE){
+          checkCount++
+        }
+      });
+      
+      console.log(checkCount, this.Listitem.length, "submitEditData")
+      if(invalidData){
+        alert("ข้อมูลไม่ถูกต้อง")
+      }else if(checkCount != this.Listitem.length){
+        const item = JSON.parse(this.selectedItem)
+        const mapPayload = { ...item, Listitem: this.Listitem }
+
+        await this.axios.post("http://localhost:3000/inventory/updateListItem", {...mapPayload})
+        await this.fetchData()
+        console.log(" save update ")
+      }
+      this.dialog = false
+
+    },
+    editCount(val, index){
+      this.Listitem[index] = val
+    },
+    async fetchData(){
+      let result = await this.axios.get('http://localhost:3000/inventory/getall/' + data.SubjectID + '/' + data.Sec) 
+      this.users = result.data.data
     }
 
   },
   async created() {
+    await this.fetchData()
       // console.log('a')
-      let result = await this.axios.get('http://localhost:3000/inventory/getall/' + data.SubjectID + '/' + data.Sec) 
-      this.users = result.data.data
         //   this.name = result.data.username
         //   this.email = result.data.email
-      console.log(result)
+      // console.log(result)
   },
 }
 </script>
