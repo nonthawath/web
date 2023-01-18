@@ -24,13 +24,13 @@
       label="Sec"
       :value="Sec"
     ></v-textarea>
-    <div>
+    <!-- <div>
       <v-btn style="width: 120px" color="success" @click="dialog = true"
         >เพิ่มนิสิต</v-btn
       >
-    </div>
+    </div> -->
 
-    <div>
+    <!-- <div>
       <v-btn
         class="mt-4"
         style="width: 120px"
@@ -38,7 +38,7 @@
         @click="dialog2 = true"
         >ดูรายชื่อนิสิต</v-btn
       >
-    </div>
+    </div> -->
 
     <div>
       <v-btn class="mt-4" style="width: 120px" color="success" @click="submit"

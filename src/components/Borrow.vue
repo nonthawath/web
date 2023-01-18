@@ -5,19 +5,19 @@
     </div>
     <v-row> 
       <v-container>
-        <h1>ยืมอุปกรณ์</h1>
+        <h1>ยืมและคืนอุปกรณ์</h1>
       </v-container>
 
     </v-row>
     <v-row>
       <v-container>
-        <h1>กรุณาทำการสแกนบัตรนิสิต/อุปกรณ์</h1>
+        <h1>กรุณาทำการสแกนบัตรนักเรียน/อุปกรณ์</h1>
       </v-container>
     </v-row>
     <v-row>
       <v-container>
           <v-btn color="#F4D03F" @click="scannerID" class="mx-4" >
-            <span>Scan บัตรนิสิต</span>
+            <span>Scan บัตรนักเรียน</span>
           </v-btn>
           <v-btn color="#F4D03F" @click="scannerItem" >Scan อุปกรณ์</v-btn>
       </v-container>
@@ -29,7 +29,7 @@
             v-model="idcard"
               no-resize
               rows="1"
-              label="รหัสนิสิต"
+              label="รหัสนักเรียน"
               :value="idcard"
               v-on:keypress="isNumber(event)"
             ></v-textarea>
@@ -52,9 +52,9 @@
                 label="ยืม/คืน"
                 v-model="selectedStatus"
             ></v-select>
-            <div>
+            <!-- <div>
               <v-btn color="#2ECC71" @click="CheckItem">ตรวจสอบความเสียหาย</v-btn>  
-            </div>
+            </div> -->
         <div style="margin-top:10px;">
           <v-btn color="#2ECC71" @click="submit">ยืนยันข้อมูล</v-btn>
         </div>

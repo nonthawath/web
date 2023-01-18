@@ -25,7 +25,7 @@
       <v-list>
         <template v-for="(i, index) in menu">
           
-          <v-list-item :key="index" color="success" :to="i.to+$route.query.token" class="">
+          <v-list-item :key="index" color="success" :to="i.to+$route.query.token" class="" v-if="i.role == 'Professor' || 'Admin' ">
               <!-- <v-list-item-action class="ml-6">
                 
                 {{index+1}}
@@ -245,10 +245,12 @@ export default {
         {
           name: 'ประวัติอุปกรณ์',
           to: '/inventoryHistory?token=' ,
+          role:'Student'
         },
         {
           name: 'ประวัติการยืม',
           to: '/tablehistory?token=' ,
+          role:'Student'
         },
         // {
         //   name: 'ประวัติการยืม( None TA)',
@@ -257,6 +259,12 @@ export default {
         {
           name: 'จัดชุดอุปกรณ์',
           to: '/createBox?token=' ,
+          role:'Professor'
+        },
+        {
+          name: 'usermenagement',
+          to: '/userMANAGEMENT?token=' ,
+          role:'Admin'
         },
         // {
         //   name: 'กำหนดเวลาการจอง',

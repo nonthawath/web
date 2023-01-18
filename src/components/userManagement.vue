@@ -41,12 +41,12 @@ export default {
       Sec:data.Sec,
       headers: [
           {
-            text: 'email',
+            text: 'Email',
             align: 'start',
             sortable: false,
             value: 'email',
           },
-          { text: 'role', value: 'role' },
+          { text: 'Role', value: 'role' },
         ],
         users:[],
         email: ""
