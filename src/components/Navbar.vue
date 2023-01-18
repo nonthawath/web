@@ -243,6 +243,10 @@ export default {
           to: '/table?token=' ,
         },
         {
+          name: 'ประวัติอุปกรณ์',
+          to: '/inventoryHistory?token=' ,
+        },
+        {
           name: 'ประวัติการยืม',
           to: '/tablehistory?token=' ,
         },

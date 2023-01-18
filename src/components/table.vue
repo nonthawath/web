@@ -31,6 +31,9 @@
              <v-btn @click="submitEditData">
                 แก้ไข
               </v-btn>
+              <v-btn @click="deleteInventoryBox">
+                ลบชุดอุปกรณ์
+              </v-btn>
               <v-btn @click="closeDialog">
                 ยกเลิก
               </v-btn>
@@ -77,15 +80,17 @@ export default {
         this.dialog = true
         this.selectedItem = JSON.stringify({ ...value })
     },
-    closeDialog(){
+    async closeDialog(){
       this.dialog = false
+      await this.fetchData()
     },
     async submitEditData(){
       var invalidData = false
       let checkCount = 0
       JSON.parse(this.selectedItem).listItem.forEach((e, i) => {
         let intE = parseInt(e.count)
-        if(intE < 0 || intE < parseInt(this.Listitem[i].count)){
+        // || intE < parseInt(this.Listitem[i].count)
+        if(intE < 0 ){
           invalidData = true
         }else if (parseInt(this.Listitem[i].count) == intE){
           checkCount++
@@ -103,8 +108,12 @@ export default {
         await this.fetchData()
         console.log(" save update ")
       }
-      this.dialog = false
+      await this.closeDialog()
 
+    },
+    async deleteInventoryBox(){
+      await this.axios.post("http://localhost:3000/inventory/deleteInventoryBox/" + JSON.parse(this.selectedItem)._id)
+      await this.closeDialog()
     },
     editCount(val, index){
       this.Listitem[index] = val

@@ -16,6 +16,7 @@ import GetSubject from '@/components/GetSubject'
 import CreateSubject from '@/components/CreateSubject'
 import EditSubject from '@/components/EditSubject'
 import userManagement from '@/components/userManagement'
+import inventoryHistory from '@/components/inventoryHistory.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -105,6 +106,11 @@ const routes = [
     path: '/userManagement',
     name: 'userManagement',
     component: userManagement
+  },
+  {
+    path: '/inventoryHistory',
+    name: 'inventoryHistory',
+    component: inventoryHistory
   },
 ]
 
