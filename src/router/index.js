@@ -18,7 +18,6 @@ import EditSubject from '@/components/EditSubject'
 import userManagement from '@/components/userManagement'
 import inventoryHistory from '@/components/inventoryHistory.vue'
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',

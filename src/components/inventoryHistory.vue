@@ -3,6 +3,7 @@
     <div>
         <p style="font-size: 25px;font-weigth:bold">{{ "วิชา " + SubjectName + " รหัสวิชา " + SubjectID + " Sec " + Sec}}</p>
       </div>
+    
     <div>
       <v-data-table
       :headers="headers"
@@ -27,16 +28,15 @@
                   <!-- <input v-on:input="editCount(item, index)" type="number" v-model="item.count"/>  -->
                 </li>
             </ul>
-            <!-- <div>
-               <v-btn @click="submitEditData">
-                  แก้ไข
-                </v-btn>
-                <v-btn @click="closeDialog">
-                  ยกเลิก
-                </v-btn>
-            </div> -->
+             
           </v-card>
         </v-dialog>
+      </div>
+      <br>
+      <div>
+        <v-btn @click="onExport()">
+          export
+        </v-btn>
       </div>
     </v-container>
   </template>
@@ -66,6 +66,15 @@
       }
     },
     methods: {
+    async onExport() {
+      console.log(data.SubjectID,data.Sec)
+     data = await this.axios.post('http://localhost:3000/inventory/exportHistory',{
+        SubjectID: data.SubjectID,
+        Sec: data.Sec
+     }
+     ) 
+     console.log(data);
+    },
       logIt (data) {
         console.log('detected', data)
       },
